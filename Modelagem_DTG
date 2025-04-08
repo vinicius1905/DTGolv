@@ -1,0 +1,89 @@
+// Use DBML to define your database structure
+// Docs: https://dbml.dbdiagram.io/docs
+
+Table FAT_estatistica_jogador_partida {
+  id_partida integer [primary key]
+  id_jogadores integer
+  id_clubes integer 
+  id_estadio integer
+  id_gols integer
+  id_cartoes integer
+  id_campeonato integer
+  id_arbitros integer
+  posse_bola decimal (2.2)
+  finalizacoes_total integer
+  finalizacoes_nogol integer
+  faltas_sofridas integer
+  faltas_cometidas integer
+  assistencias integer
+  minutos_jogados integer
+  passes_certo integer
+  passes_total integer
+  dribles_total integer
+  dibles_certo integer
+
+}
+
+Table DIM_cartoes {
+  id_cartoes integer [primary key]
+  cartoes_amarelos bollean
+  cartoes_vermelhos bollean
+}
+
+Table DIM_campeonato {
+  id_campeonato integer [primary key]
+  camp_nome varchar (50)
+  camp_qtd_rodadas integer
+  camp_data_inicio data
+  camp_data_final data
+}
+
+Table DIM_jogadores {
+  id_jogadores integer [primary key]
+  jog_nome varchar (50)
+  jog_idade smallint
+  jog_nacionalidade varchar (15)
+  Jog_perna_dominante varchar (10)
+  jog_posicao varchar (20)
+}
+
+Table DIM_clubes {
+  id_clube integer [primary key]
+  club_nome varchar (50)
+  club_data_fundacao data
+}
+
+Table DIM_gols {
+  id_gols integer [primary key]
+  gols_pernadireita bollean
+  gols_cabeca bollean
+  gols_pernaesquerda bollean
+  gols_outros boolean
+}
+
+Table DIM_arbitros {
+  id_arbitros integer [primary key]
+  arb_nome varchar (50)
+  arb_idade smallint
+  arb_nacionalidade varchar (15)
+}
+
+
+Table DIM_estadio {
+  id_estadio integer [primary key]
+  est_nome varchar (50)
+  est_estado varchar (20)
+  est_cidade varchar (50)
+  est_capacidade integer
+}
+
+
+ Ref: DIM_estadio.id_estadio < FAT_estatistica_jogador_partida.id_estadio
+ Ref: DIM_arbitros.id_arbitros < FAT_estatistica_jogador_partida.id_arbitros
+ Ref: DIM_campeonato.id_campeonato < FAT_estatistica_jogador_partida.id_campeonato
+ Ref: DIM_cartoes.id_cartoes < FAT_estatistica_jogador_partida.id_cartoes
+ Ref: DIM_gols.id_gols < FAT_estatistica_jogador_partida.id_gols
+ Ref: DIM_jogadores.id_jogadores < FAT_estatistica_jogador_partida.id_jogadores
+ Ref: DIM_clubes.id_clube < FAT_estatistica_jogador_partida.id_clubes
+
+
